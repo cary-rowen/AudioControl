@@ -57,7 +57,7 @@ def switchOutputDevice(step):
 	except ValueError:
 		i = 0
 	else:
-		i = (selection + step) % len(names)  # 总是循环切换
+		i = (selection + step) % len(names)  # Always cycle
 
 	config.conf["speech"]["outputDevice"] = names[i]
 	synthDriverHandler.setSynth(synthDriverHandler.getSynth().name)  # 必须重新初始化合成器才能生效
@@ -81,7 +81,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
   curVolume=dll.getVolume(1)
   if self.myVolume!=curVolume:
    dll.setVolume(1,self.myVolume)
-#   ui.message("麦克风音量从 %d 调整为 %d" % (curVolume,self.myVolume))
   if self.isAutoMyVolume==1:
    wx.CallLater(500,self.setMyVolume)
 
@@ -115,7 +114,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
   num=num+1
   if dll.getMaxVol() >= num:
    dll.setVolume(0, num)
-   ui.message(_("%d Increase master volume") % num)
+   ui.message(_("{} Increase master volume").format(num))
   else:
    ui.message(_("100 Maximum master volume"))
 
@@ -125,7 +124,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
   if dll.getMaxVol() >= num:
    dll.setVolume(1, num)
    self.myVolume=num
-   str = _("%d Increase microphone volume") % num
+   str = _("{} Increase microphone volume").format(num)
    ui.message(str)
   else:
    ui.message(_("100 Maximum microphone volume"))
@@ -138,11 +137,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
   getProcessName(byref(info))
   if dll.getMaxVol() >= num:
    dll.setVolume(2, num, info.id)
-   strs = "%d"%num
-#   ui.message(_("%s Increase %s volume") % (strs, info.name.decode('gb2312').replace(".exe", "")))
+   strs = "{}".format(num)
    ui.message(_("{} Increase {} volume").format(strs, info.name.decode('gb2312').replace(".exe", "")))
   else:
-   ui.message(_("100 maximum %s volume") % info.name.decode('gb2312').replace(".exe", ""))
+   ui.message(_("100 maximum {} volume").format(info.name.decode('gb2312').replace(".exe", "")))
 
  @script(
   description=_("Decrease the volume"),
@@ -161,7 +159,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
   num=num-1
   if dll.getMinVol() <= num:
    dll.setVolume(0, num)
-   ui.message(_("%d Decrease the master volume") % num)
+   ui.message(_("{} Decrease the master volume").format(num))
   else:
    ui.message(_("0 Minimum master volume"))
 
@@ -171,7 +169,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
   if dll.getMinVol() <= num:
    dll.setVolume(1, num)
    self.myVolume=num
-   ui.message(_("%d Decrease microphone volume") % num)
+   ui.message(_("{} Decrease microphone volume").format(num))
   else:
    ui.message(_("0 Minimum microphone volume"))
 
@@ -183,11 +181,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
   getProcessName(byref(info))
   if dll.getMinVol() <= num:
    dll.setVolume(2, num, info.id)
-   strs = "%d"%num
-#   ui.message(_("%s Reduce %s volume") % (strs, info.name.decode('gb2312').replace(".exe", "")))
+   strs = "{}".format(num)
    ui.message(_("{} Reduce {} volume").format(strs, info.name.decode('gb2312').replace(".exe", "")))
   else:
-   ui.message(_("0 lowest %s volume") % info.name.decode('gb2312').replace(".exe", ""))
+   ui.message(_("0 lowest {} volume").format(info.name.decode('gb2312').replace(".exe", "")))
 
  def mMute(self):
   dll.setMute(1, not dll.getMute(1))
@@ -230,15 +227,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
   if 0 == self.nType:
    status = _("Muted") if dll.getMute(0)==1 else ""
-   ui.message(status + _("Speaker volume %d") % dll.getVolume(0))
+   ui.message(status + _("Speaker volume {}").format(dll.getVolume(0)))
   elif 1 == self.nType:
    status = _("Microphone turned off") if dll.getMute(1)==1 else ""
-   ui.message(status+_("Microphone volume %d") % dll.getVolume(1))
+   ui.message(status+_("Microphone volume {}").format(dll.getVolume(1)))
   elif 2 == self.nType:
    info = sessionInfo()
    info.id = dll.getLastSession()
    getProcessName(byref(info))
-#   strs = _("%s volume %d") % (info.name.decode('gb2312').replace(".exe", ""), dll.getVolume(2, info.id))
    strs = _("{} volume {}").format(info.name.decode('gb2312').replace(".exe", ""), dll.getVolume(2, info.id))
    status = _("Muted") if dll.getMute(2, info.id)==1 else ""
    ui.message(status+strs)
@@ -253,10 +249,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
   if 0 == self.nType:
    status = _("Muted") if dll.getMute(0)==1 else ""
-   ui.message(status+_("Speaker volume %d") % dll.getVolume(0))
+   ui.message(status+_("Speaker volume {}").format(dll.getVolume(0)))
   elif 1 == self.nType:
    status = _("Microphone turned off") if dll.getMute(1)==1 else ""
-   ui.message(status + _("Microphone volume %d") % dll.getVolume(1))
+   ui.message(status + _("Microphone volume {}").format(dll.getVolume(1)))
   elif 2 == self.nType:
    info = sessionInfo()
    info.id = dll.getNextSession()
