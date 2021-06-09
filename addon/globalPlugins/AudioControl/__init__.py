@@ -42,7 +42,11 @@ if not(os.path.isfile(RTPath + RTvcp) or os.path.isfile(RTPath + RTvcr)):
 		if not os.path.isfile(RTPath + RTvcr): shutil.copy(os.path.join(path, RTvcr), RTPath)
 	else:
 		if sys.version_info[0] == 3: ctypes.windll.shell32.ShellExecuteW(None, 'runas', sys.executable, __file__, None, 1)
-
+def friendlyName(text):
+ text = text.decode('gb2312')
+ text = text.split(".")[0]
+ if text=="taskhostw": text = _("System reminder")
+ return text
 
 dll = None
 path = os.path.dirname(__file__)
@@ -135,9 +139,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
   if dll.getMaxVol() >= num:
    dll.setVolume(2, num, info.id)
    strs = "{}".format(num)
-   ui.message(_("{} Increase {} volume").format(strs, info.name.decode('gb2312').replace(".exe", "")))
+   ui.message(_("{} Increase {} volume").format(strs, friendlyName(info.name)))
   else:
-   ui.message(_("100 maximum {} volume").format(info.name.decode('gb2312').replace(".exe", "")))
+   ui.message(_("100 maximum {} volume").format(friendlyName(info.name)))
 
  @script(
   description=_("Decrease the volume"),
@@ -156,7 +160,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
   num=num-1
   if dll.getMinVol() <= num:
    dll.setVolume(0, num)
-   ui.message(_("{} Decrease the master volume").format(num))
+   ui.message(_("{} Decrease master volume").format(num))
   else:
    ui.message(_("0 Minimum master volume"))
 
@@ -179,16 +183,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
   if dll.getMinVol() <= num:
    dll.setVolume(2, num, info.id)
    strs = "{}".format(num)
-   ui.message(_("{} Reduce {} volume").format(strs, info.name.decode('gb2312').replace(".exe", "")))
+   ui.message(_("{} Decrease {} volume").format(strs, friendlyName(info.name)))
   else:
-   ui.message(_("0 lowest {} volume").format(info.name.decode('gb2312').replace(".exe", "")))
+   ui.message(_("0 lowest {} volume").format(friendlyName(info.name)))
 
  def mMute(self):
   dll.setMute(1, not dll.getMute(1))
   if dll.getMute(1):
-   ui.message(_("Turn off the microphone"))
+   ui.message(_("microphone off"))
   else:
-   ui.message(_("Turn on the microphone"))
+   ui.message(_("microphone on"))
 
  def vMute(self):
   dll.setMute(0, not dll.getMute(0))
@@ -206,7 +210,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
   else:
    strs = _("Open")
   getProcessName(byref(info))
-  ui.message(_("{} {} volume").format(strs, info.name.decode('gb2312').replace(".exe", "")))
+  ui.message(_("{} {} volume").format(strs, friendlyName(info.name)))
 
 
  @script(
@@ -226,13 +230,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
    status = _("Muted") if dll.getMute(0)==1 else ""
    ui.message(status + _("Speaker volume {}").format(dll.getVolume(0)))
   elif 1 == self.nType:
-   status = _("Microphone turned off") if dll.getMute(1)==1 else ""
+   status = _("Microphone off") if dll.getMute(1)==1 else ""
    ui.message(status+_("Microphone volume {}").format(dll.getVolume(1)))
   elif 2 == self.nType:
    info = sessionInfo()
    info.id = dll.getLastSession()
    getProcessName(byref(info))
-   strs = _("{} volume {}").format(info.name.decode('gb2312').replace(".exe", ""), dll.getVolume(2, info.id))
+   strs = _("{} volume {}").format(friendlyName(info.name), dll.getVolume(2, info.id))
    status = _("Muted") if dll.getMute(2, info.id)==1 else ""
    ui.message(status+strs)
 
@@ -248,13 +252,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
    status = _("Muted") if dll.getMute(0)==1 else ""
    ui.message(status+_("Speaker volume {}").format(dll.getVolume(0)))
   elif 1 == self.nType:
-   status = _("Microphone turned off") if dll.getMute(1)==1 else ""
+   status = _("Microphone off") if dll.getMute(1)==1 else ""
    ui.message(status + _("Microphone volume {}").format(dll.getVolume(1)))
   elif 2 == self.nType:
    info = sessionInfo()
    info.id = dll.getNextSession()
    getProcessName(byref(info))
-   strs = _("{} volume {}").format(info.name.decode('gb2312').replace(".exe", ""), dll.getVolume(2, info.id))
+   strs = _("{} volume {}").format(friendlyName(info.name), dll.getVolume(2, info.id))
    status = _("Muted") if dll.getMute(2, info.id)==1 else ""
    ui.message(status+strs)
 
