@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 'AudioControl' '1.5'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2021-06-09 19:46+0800\n"
-"PO-Revision-Date: 2021-06-09 19:48+0800\n"
+"POT-Creation-Date: 2021-06-09 20:29+0800\n"
+"PO-Revision-Date: 2021-06-09 20:29+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -18,158 +18,158 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: addon\globalPlugins\AudioControl.py:66
-msgid "Default device"
-msgstr "默认设备"
-
-#: addon\globalPlugins\AudioControl.py:72
+#: addon\globalPlugins\AudioControl\__init__.py:58
 msgid "Audio control"
 msgstr "音频控制"
 
-#: addon\globalPlugins\AudioControl.py:88
+#: addon\globalPlugins\AudioControl\__init__.py:74
 msgid ""
 "Prohibit the microphone volume from being automatically adjusted by other "
 "programs"
 msgstr "防止麦克风音量被其他程序自动调节"
 
-#: addon\globalPlugins\AudioControl.py:94
+#: addon\globalPlugins\AudioControl\__init__.py:80
 msgid "Default"
 msgstr "默认"
 
-#: addon\globalPlugins\AudioControl.py:98
+#: addon\globalPlugins\AudioControl\__init__.py:84
 msgid "Prevent automatic adjustment of microphone volume"
 msgstr "防止自动调整麦克风音量"
 
-#: addon\globalPlugins\AudioControl.py:101
+#: addon\globalPlugins\AudioControl\__init__.py:87
 msgid "Increase volume"
 msgstr "增加音量"
 
-#: addon\globalPlugins\AudioControl.py:117
+#: addon\globalPlugins\AudioControl\__init__.py:103
 msgid "{} Increase master volume"
 msgstr "{} 增大主音量"
 
-#: addon\globalPlugins\AudioControl.py:119
+#: addon\globalPlugins\AudioControl\__init__.py:105
 msgid "100 Maximum master volume"
 msgstr "100 最大主音量"
 
-#: addon\globalPlugins\AudioControl.py:127
+#: addon\globalPlugins\AudioControl\__init__.py:113
 msgid "{} Increase microphone volume"
 msgstr "{} 增加麦克风音量"
 
-#: addon\globalPlugins\AudioControl.py:130
+#: addon\globalPlugins\AudioControl\__init__.py:116
 msgid "100 Maximum microphone volume"
 msgstr "100 最大麦克风音量"
 
-#: addon\globalPlugins\AudioControl.py:141
+#: addon\globalPlugins\AudioControl\__init__.py:127
 msgid "{} Increase {} volume"
 msgstr "{} 增加 {} 音量"
 
-#: addon\globalPlugins\AudioControl.py:143
+#: addon\globalPlugins\AudioControl\__init__.py:129
 msgid "100 maximum {} volume"
 msgstr "100 最大 {} 音量"
 
-#: addon\globalPlugins\AudioControl.py:146
+#: addon\globalPlugins\AudioControl\__init__.py:132
 msgid "Decrease the volume"
 msgstr "降低音量"
 
-#: addon\globalPlugins\AudioControl.py:162
+#: addon\globalPlugins\AudioControl\__init__.py:148
 msgid "{} Decrease the master volume"
 msgstr "{} 降低主音量"
 
-#: addon\globalPlugins\AudioControl.py:164
+#: addon\globalPlugins\AudioControl\__init__.py:150
 msgid "0 Minimum master volume"
 msgstr "0 最小主音量"
 
-#: addon\globalPlugins\AudioControl.py:172
+#: addon\globalPlugins\AudioControl\__init__.py:158
 msgid "{} Decrease microphone volume"
 msgstr "{} 降低麦克风音量"
 
-#: addon\globalPlugins\AudioControl.py:174
+#: addon\globalPlugins\AudioControl\__init__.py:160
 msgid "0 Minimum microphone volume"
 msgstr "0 最小麦克风音量"
 
-#: addon\globalPlugins\AudioControl.py:185
+#: addon\globalPlugins\AudioControl\__init__.py:171
 msgid "{} Reduce {} volume"
 msgstr "{} 减小 {} 音量"
 
-#: addon\globalPlugins\AudioControl.py:187
+#: addon\globalPlugins\AudioControl\__init__.py:173
 msgid "0 lowest {} volume"
 msgstr "0 最小 {} 音量"
 
-#: addon\globalPlugins\AudioControl.py:192
+#: addon\globalPlugins\AudioControl\__init__.py:178
 msgid "Turn off the microphone"
 msgstr "关闭麦克风"
 
-#: addon\globalPlugins\AudioControl.py:194
+#: addon\globalPlugins\AudioControl\__init__.py:180
 msgid "Turn on the microphone"
 msgstr "打开麦克风"
 
-#: addon\globalPlugins\AudioControl.py:199
+#: addon\globalPlugins\AudioControl\__init__.py:185
 msgid "Mute"
 msgstr "静音"
 
-#: addon\globalPlugins\AudioControl.py:201
+#: addon\globalPlugins\AudioControl\__init__.py:187
 msgid "Unmute"
 msgstr "取消静音"
 
-#: addon\globalPlugins\AudioControl.py:208
+#: addon\globalPlugins\AudioControl\__init__.py:194
 msgid "Closed"
 msgstr "关闭"
 
-#: addon\globalPlugins\AudioControl.py:210
+#: addon\globalPlugins\AudioControl\__init__.py:196
 msgid "Open"
 msgstr "打开"
 
-#: addon\globalPlugins\AudioControl.py:212
+#: addon\globalPlugins\AudioControl\__init__.py:198
 msgid "{} {} volume"
 msgstr "{} {} 音量"
 
-#: addon\globalPlugins\AudioControl.py:216
+#: addon\globalPlugins\AudioControl\__init__.py:202
 msgid "Switch to the previous application"
 msgstr "切换到上一个应用程序"
 
-#: addon\globalPlugins\AudioControl.py:229
-#: addon\globalPlugins\AudioControl.py:239
-#: addon\globalPlugins\AudioControl.py:251
-#: addon\globalPlugins\AudioControl.py:261
+#: addon\globalPlugins\AudioControl\__init__.py:215
+#: addon\globalPlugins\AudioControl\__init__.py:225
+#: addon\globalPlugins\AudioControl\__init__.py:237
+#: addon\globalPlugins\AudioControl\__init__.py:247
 msgid "Muted"
 msgstr "已静音"
 
-#: addon\globalPlugins\AudioControl.py:230
-#: addon\globalPlugins\AudioControl.py:252
+#: addon\globalPlugins\AudioControl\__init__.py:216
+#: addon\globalPlugins\AudioControl\__init__.py:238
 msgid "Speaker volume {}"
 msgstr "扬声器音量 {}"
 
-#: addon\globalPlugins\AudioControl.py:232
-#: addon\globalPlugins\AudioControl.py:254
+#: addon\globalPlugins\AudioControl\__init__.py:218
+#: addon\globalPlugins\AudioControl\__init__.py:240
 msgid "Microphone turned off"
 msgstr "麦克风已关闭"
 
-#: addon\globalPlugins\AudioControl.py:233
-#: addon\globalPlugins\AudioControl.py:255
+#: addon\globalPlugins\AudioControl\__init__.py:219
+#: addon\globalPlugins\AudioControl\__init__.py:241
 msgid "Microphone volume {}"
 msgstr "麦克风音量 {}"
 
-#: addon\globalPlugins\AudioControl.py:238
-#: addon\globalPlugins\AudioControl.py:260
+#: addon\globalPlugins\AudioControl\__init__.py:224
+#: addon\globalPlugins\AudioControl\__init__.py:246
 msgid "{} volume {}"
 msgstr "{} {} 音量"
 
-#: addon\globalPlugins\AudioControl.py:243
+#: addon\globalPlugins\AudioControl\__init__.py:229
 msgid "Switch to the next application"
 msgstr "切换到下一个应用程序"
 
-#: addon\globalPlugins\AudioControl.py:265
+#: addon\globalPlugins\AudioControl\__init__.py:251
 msgid "Mute state switch"
 msgstr "切换静音状态"
 
-#: addon\globalPlugins\AudioControl.py:277
+#: addon\globalPlugins\AudioControl\__init__.py:263
 msgid "Switch to the next audio output device"
 msgstr "切换到下一个音频输出设备"
 
-#: addon\globalPlugins\AudioControl.py:284
+#: addon\globalPlugins\AudioControl\__init__.py:270
 msgid "Switch to the previous audio output device"
 msgstr "切换到上一个音频输出设备"
+
+#: addon\globalPlugins\AudioControl\switchOutputDevice.py:20
+msgid "Default device"
+msgstr "默认设备"
 
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on

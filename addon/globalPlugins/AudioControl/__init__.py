@@ -1,12 +1,26 @@
 #-*- coding:utf-8 -*-
 
-from ctypes import *               # 导入 ctypes 库中所有模块
+from ctypes import (
+ Structure,
+ c_char,
+ c_ulong,
+ POINTER,
+ byref,
+ cdll,
+ windll
+)
+
+from . switchOutputDevice import *
+
 from scriptHandler import script
-import config, nvwave, synthDriverHandler, ui, os, sys, gui, wx
+import ui
+import os
+import sys
+import wx
 import globalPluginHandler
-import ctypes
 import addonHandler
 import shutil
+
 addonHandler.initTranslation()
 
 path = os.path.dirname(__file__)
@@ -32,7 +46,8 @@ if not(os.path.isfile(RTPath + RTvcp) or os.path.isfile(RTPath + RTvcr)):
 
 dll = None
 path = os.path.dirname(__file__)
-dll = ctypes.cdll.LoadLibrary(os.path.join(path, 'AudioControlDll.dll'))
+dll = cdll.LoadLibrary(os.path.join(path, 'AudioControlDll.dll'))
+
 #为了记录当前控制的是什么设备,默认为控制扬声器
 nType=0
 
@@ -47,24 +62,6 @@ class sessionInfo(Structure):
 
 getProcessName = dll.getProcessName
 getProcessName.argtypes = [POINTER(sessionInfo)]
-
-
-
-def switchOutputDevice(step):
-	names = nvwave.getOutputDeviceNames()
-	try:
-		selection = names.index(config.conf["speech"]["outputDevice"])
-	except ValueError:
-		i = 0
-	else:
-		i = (selection + step) % len(names)  # Always cycle
-
-	config.conf["speech"]["outputDevice"] = names[i]
-	synthDriverHandler.setSynth(synthDriverHandler.getSynth().name)  # 必须重新初始化合成器才能生效
-
-	name = config.conf["speech"]["outputDevice"]
-	name = name if name else _("Default device")
-	ui.message(name)
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
  nType = 0
