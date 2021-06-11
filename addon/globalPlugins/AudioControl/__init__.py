@@ -1,18 +1,19 @@
 #-*- coding:utf-8 -*-
 
 from ctypes import (
- Structure,
- c_char,
- c_ulong,
- POINTER,
- byref,
- cdll,
- windll
+	Structure,
+	c_char,
+	c_ulong,
+	POINTER,
+	byref,
+	cdll,
+	windll
 )
 
 from . switchOutputDevice import *
 
 from scriptHandler import script
+
 import ui
 import os
 import sys
@@ -42,14 +43,19 @@ if not(os.path.isfile(RTPath + RTvcp) or os.path.isfile(RTPath + RTvcr)):
 		if not os.path.isfile(RTPath + RTvcr): shutil.copy(os.path.join(path, RTvcr), RTPath)
 	else:
 		if sys.version_info[0] == 3: ctypes.windll.shell32.ShellExecuteW(None, 'runas', sys.executable, __file__, None, 1)
+
 def friendlyName(text):
- text = text.decode('gb2312')
- text = text.split(".")[0]
- if text=="taskhostw": text = _("System reminder")
- return text
+	name_Dict={
+	"WeChat":_("WeChat"),
+	"taskhostw":_("System reminder"),
+	"chrome":_("Google Chrome"),
+}
+	text = text.decode('gb2312')
+	text = text.split(".")[0]
+	text=name_Dict.get(text, text)
+	return text
 
 dll = None
-path = os.path.dirname(__file__)
 dll = cdll.LoadLibrary(os.path.join(path, 'AudioControlDll.dll'))
 
 #为了记录当前控制的是什么设备,默认为控制扬声器
@@ -59,10 +65,10 @@ nType=0
 INFONAME = c_char * 128
 
 class sessionInfo(Structure):
- _fields_ = [
-  ("id",c_ulong),
-  ("name", INFONAME)
- ]
+	_fields_ = [
+		("id",c_ulong),
+		("name", INFONAME)
+]
 
 getProcessName = dll.getProcessName
 getProcessName.argtypes = [POINTER(sessionInfo)]
