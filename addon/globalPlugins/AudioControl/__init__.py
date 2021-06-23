@@ -33,7 +33,7 @@ RTvcr = 'msvcr120.dll'
 
 def is_admin():
 	try:
-		return ctypes.windll.shell32.IsUserAnAdmin()
+		return windll.shell32.IsUserAnAdmin()
 	except:
 		return False
 
@@ -42,7 +42,7 @@ if not(os.path.isfile(RTPath + RTvcp) or os.path.isfile(RTPath + RTvcr)):
 		if not os.path.isfile(RTPath + RTvcp): shutil.copy(os.path.join(path, RTvcp), RTPath)
 		if not os.path.isfile(RTPath + RTvcr): shutil.copy(os.path.join(path, RTvcr), RTPath)
 	else:
-		if sys.version_info[0] == 3: ctypes.windll.shell32.ShellExecuteW(None, 'runas', sys.executable, __file__, None, 1)
+		if sys.version_info[0] == 3: windll.shell32.ShellExecuteW(None, 'runas', sys.executable, __file__, None, 1)
 
 def friendlyName(text):
 	name_Dict={
