@@ -1,35 +1,28 @@
-## AudioControl-1.4.5（音频控制插件）
+## AudioControl
 
-为正在运行的应用程序调整音量，设置静音状态以及切换NVDA声音输出的插件。
+Add-on for adjusting the volume, setting the mute state and switching the NVDA sound output for running applications.
 
-## 说明
+## Description
 
-**下表为默认热键方案，如果需要，您可以在NVDA“输入首饰”对话框的“音频控制”类别下自行更改**
+**The table is the default hot key you can change it yourself if required in the NVDA "Input gesture dialog under the "Audio Control" category.**
 
-| 名称 | 台式机 | 笔记本 |
+| Name | Desktop | Laptop |
 | ---- | ---- | ---- |
-| 将 NVDA 切换到上一个声音输出设备 | Windows+Control+Alt+小键盘7 | Windows+Control+Alt+PageUp |
-| 将 NVDA 切换到下一个声音输出设备 | Windows+Control+Alt+小键盘9 | Windows+Control+Alt+PageDown |
-| 上一个应用程序/设备 | Windows+Control+Alt+小键盘4 | Windows+Control+Alt+Left |
-| 下一个应用程序/设备 | Windows+Control+Alt+小键盘6 | Windows+Control+Alt+Right |
-| 增大当前应用程序/设备的音量 | Windows+Control+Alt+小键盘8 | Windows+Control+Alt+Up |
-| 减小当前应用程序/设备的音量 | Windows+Control+Alt+小键盘2 | Windows+Control+Alt+Down |
-| 为当前选中应用程序/设备设置或取消静音状态 | Windows+Control+Alt+小键盘5 | Windows+Control+Alt+M |
-| 锁定/解锁麦克风音量（防止其他应用自动调节麦克风音量） | Windows+Control+Alt+小键盘删除 | Windows+Control+Alt+句号 |
+| Switch NVDA to the previous output device | Windows+Control+Alt+Keypad7 | Windows+Control+Alt+PageUp |
+| Switch NVDA to the next output device | Windows+Control+Alt+Keypad9 | Windows+Control+Alt+PageDown | Windows+Control+Alt+PageDown
+| Previous Application/Device | Windows+Control+Alt+Keypad4 | Windows+Control+Alt+Left |
+| Next Application/Device | Windows+Control+Alt+Keypad6 | Windows+Control+Alt+Right |
+| Increase the volume of the current application/device | Windows+Control+Alt+Keypad8 | Windows+Control+Alt+Up |
+| Decrease the volume of the current application/device | Windows+Control+Alt+Keypad2 | Windows+Control+Alt+Down |
+| Set or unset the mute state for the currently selected application/device | Windows+Control+Alt+Keypad5 | Windows+Control+Alt+M |
+| Lock/Unlock Microphone Volume (prevents other applications from automatically adjusting the microphone volume) | Windows+Control+Alt+KeypadDelete | Windows+Control+Alt+Period |
 
-## 维护者
-* 幽兰少云（音频控制模块）； 好奇的01（声音输出切换模块）； Eureka（整合，升级维护）
+## Contributor
 
-## 1.4.5版更新日志
-1. 增加锁定/解锁麦克风音量功能，防止其他应用自动调节麦克风音量，如： 微信。
-    - PS： 感谢沉浮老师提供帮助。
-2. 增加笔记本键盘方案，详见帮助文档。
+- Cary-Rowen (Add-on upgrade and maintenance)
+- Youlan (Audio control library)
+- 好奇的 01 (switchOutputDevice)
 
-## 1.4.2版更新日志
-1. 切换设备/应用程序时可以读出其静音状态；
-2. 切换到的应用程序不再包含扩展名（*.exe）。
-3. 完善帮助文档。
+## compatibility
+**NVDA2019.3 and later**
 
-## 1.4版更新日志
-1. 增加切换 NVDA 输出设备的功能；
-2. 支持自定义快捷键；
