@@ -22,6 +22,7 @@ Add-on for adjusting the volume, setting the mute state and switching the NVDA s
 - Cary-Rowen (Add-on upgrade and maintenance)
 - Youlan (Audio control library)
 - 好奇的 01 (switchOutputDevice)
+* Chenfu (Other support)
 
 ## compatibility
 **NVDA2019.3 and later**
