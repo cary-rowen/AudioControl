@@ -8,8 +8,7 @@
 
 | 名称 | 台式机 | 笔记本 |
 | ---- | ---- | ---- |
-| 将 NVDA 切换到上一个声音输出设备 | Windows+Control+Alt+小键盘7 | Windows+Control+Alt+PageUp |
-| 将 NVDA 切换到下一个声音输出设备 | Windows+Control+Alt+小键盘9 | Windows+Control+Alt+PageDown |
+| 循环切换声音输出设备 | NVDA+Windows+D | NVDA+Windows+D |
 | 上一个应用程序/设备 | Windows+Control+Alt+小键盘4 | Windows+Control+Alt+Left |
 | 下一个应用程序/设备 | Windows+Control+Alt+小键盘6 | Windows+Control+Alt+Right |
 | 增大当前应用程序/设备的音量 | Windows+Control+Alt+小键盘8 | Windows+Control+Alt+Up |
@@ -21,11 +20,17 @@
 
 * Cary-Rowen （插件维护）
 * 幽兰少云（音频控制模块）；
-* 好奇的01（声音输出切换模块）；
+* Cyrille Bougot (输出设备切换)
 * 沉浮 （其他支持）
 
 ## 兼容性
 **NVDA2019.3及最新**
+
+
+## 1.6 版更新日志
+1. 修复一处自动安装运行库失败的错误；
+2. 声音输出设备切换更加稳定，解决 tones.beep 不跟随切换的问题；
+3. 声音输出改为循环切换模式 NVDA + Windows +D。
 
 ## 1.5版更新日志
 1. 初步整理代码；
