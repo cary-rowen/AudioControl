@@ -8,7 +8,8 @@ Add-on for adjusting the volume, setting the mute state and switching the NVDA s
 
 | Name | Desktop | Laptop |
 | ---- | ---- | ---- |
-| Cycle through audio devices | NVDA+Windows+D | NVDA+Windows+D |
+| Next output device | NVDA+Windows+D | NVDA+Windows+D |
+| Previous output device | Shift+NVDA+Windows+D | Shift+NVDA+Windows+D |
 | Previous Application/Device | Windows+Control+Alt+Keypad4 | Windows+Control+Alt+Left |
 | Next Application/Device | Windows+Control+Alt+Keypad6 | Windows+Control+Alt+Right |
 | Increase the volume of the current application/device | Windows+Control+Alt+Keypad8 | Windows+Control+Alt+Up |
@@ -18,7 +19,7 @@ Add-on for adjusting the volume, setting the mute state and switching the NVDA s
 
 ## Contributors
 
-- Cary-Rowen (Add-on upgrade and maintenance)
+- Cary-Rowen (Add-on maintainer)
 - Youlan (Audio control library)
 - Cyrille Bougot (switchOutputDevice)
 - Chenfu (Other support)

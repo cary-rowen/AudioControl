@@ -25,11 +25,11 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon_description": _("""A add-on for controlling audio processes and sound output devices."""),
 	# version
-	"addon_version": "1.6",
+	"addon_version": "1.7",
 	# Author(s)
-	"addon_author": "Youlan； 好奇的01； Eureka； 沉浮",
+	"addon_author": "Cary-Rowen, Youlan, Cyrille Bougot, Chenfu",
 	# URL for the add-on documentation support
-	"addon_url": None,
+	"addon_url": "https://github.com/cary-rowen/AudioControl",
 	# Documentation file name
 	"addon_docFileName": "readme.html",
 	# Minimum NVDA version supported (e.g. "2018.3.0", minor version is optional)

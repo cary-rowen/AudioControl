@@ -1,4 +1,7 @@
 #-*- coding:utf-8 -*-
+# AudioControl addon for NVDA
+# Copyright 2021-2022 Cary-Rowen, Youlan, Cyrille Bougot, Chenfu
+# released under GPL.
 
 from ctypes import (
 	Structure,
@@ -7,106 +10,88 @@ from ctypes import (
 	POINTER,
 	byref,
 	cdll,
-	windll
 )
 
-#from . switchOutputDevice import *
-
 from scriptHandler import script
-
+from synthDriverHandler import getSynth, setSynth
 import ui
 import config
 import nvwave
 import tones
-from synthDriverHandler import getSynth, setSynth
 import core
 import os
-import sys
 import wx
 import globalPluginHandler
 import addonHandler
-import shutil
 
 addonHandler.initTranslation()
-nvdaTranslations = _
 
 path = os.path.dirname(__file__)
-RTPath = os.environ['WINDIR'] + R'\\sysWOW64\\'
-if not os.path.isdir(RTPath):
-	RTPath = os.environ['WINDIR'] + '\\system32\\'
-RTvcp = 'msvcp120.dll'
-RTvcr = 'msvcr120.dll'
+os.putenv('path', os.pathsep.join([os.getenv('path'), path]))
 
-def is_admin():
-	try:
-		return windll.shell32.IsUserAnAdmin()
-	except:
-		return False
-
-if not(os.path.isfile(RTPath + RTvcp) or os.path.isfile(RTPath + RTvcr)):
-	if is_admin():
-		if not os.path.isfile(RTPath + RTvcp): shutil.copy(os.path.join(path, RTvcp), RTPath)
-		if not os.path.isfile(RTPath + RTvcr): shutil.copy(os.path.join(path, RTvcr), RTPath)
-	else:
-		if sys.version_info[0] == 3: windll.shell32.ShellExecuteW(None, 'runas', sys.executable, __file__, None, 1)
 
 def friendlyName(text):
-	name_Dict={
-	"WeChat":_("WeChat"),
-	"taskhostw":_("System reminder"),
-	"chrome":_("Google Chrome"),
-}
+	name_Dict = {
+		"WeChat": _("WeChat"),
+		"taskhostw": _("System reminder"),
+		"chrome": _("Google Chrome"),
+		}
+
 	text = text.decode('gb2312')
 	text = text.split(".")[0]
-	text=name_Dict.get(text, text)
+	text = name_Dict.get(text, text)
 	return text
 
+
 dll = None
-dll = cdll.LoadLibrary(os.path.join(path, 'AudioControlDll.dll'))
+dll = cdll.LoadLibrary(os.path.join(path, 'AudioControl.dll'))
 
-#为了记录当前控制的是什么设备,默认为控制扬声器
-nType=0
+# Controls the current speaker by default
+nType = 0
 
-#准备一些结构体需要的数据，为了获取绘画名称等信息
+# Get session name and session ID
 INFONAME = c_char * 128
+
 
 class sessionInfo(Structure):
 	_fields_ = [
-		("id",c_ulong),
-		("name", INFONAME)
-]
+	("id", c_ulong),
+	("name", INFONAME)
+	]
+
 
 getProcessName = dll.getProcessName
 getProcessName.argtypes = [POINTER(sessionInfo)]
 
+
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	nType = 0
-	isAutoMyVolume=0
-	scriptCategory=_("Audio control")
+	isAutoMyVolume = 0
+	scriptCategory = _("Audio control")
 
 	def __init__(self):
 		super().__init__()
-		self.myVolume=dll.getVolume(1)
-		if self.isAutoMyVolume==1:
+		self.myVolume = dll.getVolume(1)
+		if self.isAutoMyVolume == 1:
 			self.setMyVolume()
 
 	def setMyVolume(self):
-		curVolume=dll.getVolume(1)
-		if self.myVolume!=curVolume:
-			dll.setVolume(1,self.myVolume)
-		if self.isAutoMyVolume==1:
-			wx.CallLater(500,self.setMyVolume)
+		curVolume = dll.getVolume(1)
+		if self.myVolume != curVolume:
+			dll.setVolume(1, self.myVolume)
+		if self.isAutoMyVolume == 1:
+			wx.CallLater(500, self.setMyVolume)
 
 	@script(
 		description=_("Prohibit the microphone volume from being automatically adjusted by other programs"),
 		gestures=["kb:Windows+control+alt+NumpadDelete", "kb(laptop):Windows+control+alt+."]
-	)
+		)
 	def script_autoSetMyVolume(self, gesture):
-		self.isAutoMyVolume=(self.isAutoMyVolume+1)%2
-		if self.isAutoMyVolume==0:
+		self.isAutoMyVolume = (self.isAutoMyVolume+1)%2
+		if self.isAutoMyVolume == 0:
 			ui.message(_("Default"))
-		if self.isAutoMyVolume==1:
-			self.myVolume=dll.getVolume(1)
+		if self.isAutoMyVolume == 1:
+			self.myVolume = dll.getVolume(1)
 			self.setMyVolume()
 			ui.message(_("Prevent automatic adjustment of microphone volume"))
 
@@ -124,7 +109,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def vVolumeUp(self):
 		num = dll.getVolume(0)
-		num=num+1
+		num = num + 1
 		if dll.getMaxVol() >= num:
 			dll.setVolume(0, num)
 			ui.message(_("{} Increase master volume").format(num))
@@ -133,10 +118,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def mVolumeUp(self):
 		num = dll.getVolume(1)
-		num=num+1
+		num = num + 1
 		if dll.getMaxVol() >= num:
 			dll.setVolume(1, num)
-			self.myVolume=num
+			self.myVolume = num
 			str = _("{} Increase microphone volume").format(num)
 			ui.message(str)
 		else:
@@ -146,7 +131,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		info = sessionInfo()
 		info.id = dll.getNowSession()
 		num = dll.getVolume(2, info.id)
-		num=num+1
+		num = num + 1
 		getProcessName(byref(info))
 		if dll.getMaxVol() >= num:
 			dll.setVolume(2, num, info.id)
@@ -169,7 +154,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def vVolumeDown(self):
 		num = dll.getVolume(0)
-		num=num-1
+		num = num - 1
 		if dll.getMinVol() <= num:
 			dll.setVolume(0, num)
 			ui.message(_("{} Decrease master volume").format(num))
@@ -178,10 +163,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def mVolumeDown(self):
 		num = dll.getVolume(1)
-		num=num-1
+		num = num - 1
 		if dll.getMinVol() <= num:
 			dll.setVolume(1, num)
-			self.myVolume=num
+			self.myVolume = num
 			ui.message(_("{} Decrease microphone volume").format(num))
 		else:
 			ui.message(_("0 Minimum microphone volume"))
@@ -190,7 +175,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		info = sessionInfo()
 		info.id = dll.getNowSession()
 		num = dll.getVolume(2, info.id)
-		num=num-1
+		num = num - 1
 		getProcessName(byref(info))
 		if dll.getMinVol() <= num:
 			dll.setVolume(2, num, info.id)
@@ -233,24 +218,24 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		sessionID = dll.getSessionID()
 		if self.nType == 2 and sessionID == 0:
 			if self.nType > 0:
-				self.nType=self.nType-1
+				self.nType = self.nType - 1
 				dll.setSessionID(-1)
 		elif self.nType == 1:
 			self.nType = 0
 
 		if 0 == self.nType:
-			status = _("Muted") if dll.getMute(0)==1 else ""
+			status = _("Muted") if dll.getMute(0) == 1 else ""
 			ui.message(status + _("Speaker volume {}").format(dll.getVolume(0)))
 		elif 1 == self.nType:
-			status = _("Microphone off") if dll.getMute(1)==1 else ""
-			ui.message(status+_("Microphone volume {}").format(dll.getVolume(1)))
+			status = _("Microphone off") if dll.getMute(1) == 1 else ""
+			ui.message(status + _("Microphone volume {}").format(dll.getVolume(1)))
 		elif 2 == self.nType:
 			info = sessionInfo()
 			info.id = dll.getLastSession()
 			getProcessName(byref(info))
 			strs = _("{} volume {}").format(friendlyName(info.name), dll.getVolume(2, info.id))
-			status = _("Muted") if dll.getMute(2, info.id)==1 else ""
-			ui.message(status+strs)
+			status = _("Muted") if dll.getMute(2, info.id) == 1 else ""
+			ui.message(status + strs)
 
 	@script(
 		description=_("Switch to the next application"),
@@ -258,11 +243,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	)
 	def script_NextSession(self, gesture):
 		if self.nType < 2:
-			self.nType = self.nType+1
+			self.nType = self.nType + 1
 
 		if 0 == self.nType:
-			status = _("Muted") if dll.getMute(0)==1 else ""
-			ui.message(status+_("Speaker volume {}").format(dll.getVolume(0)))
+			status = _("Muted") if dll.getMute(0) == 1 else ""
+			ui.message(status + _("Speaker volume {}").format(dll.getVolume(0)))
 		elif 1 == self.nType:
 			status = _("Microphone off") if dll.getMute(1)==1 else ""
 			ui.message(status + _("Microphone volume {}").format(dll.getVolume(1)))
@@ -271,40 +256,51 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			info.id = dll.getNextSession()
 			getProcessName(byref(info))
 			strs = _("{} volume {}").format(friendlyName(info.name), dll.getVolume(2, info.id))
-			status = _("Muted") if dll.getMute(2, info.id)==1 else ""
-			ui.message(status+strs)
+			status = _("Muted") if dll.getMute(2, info.id) == 1 else ""
+			ui.message(status + strs)
 
 	@script(
 		description=_("Mute state switch"),
 		gestures=["kb:Windows+control+alt+Numpad5", "kb(laptop):Windows+control+alt+m"]
 	)
 	def script_SetMute(self, gesture):
-		if self.nType == 0:#扬声器静音
+		if self.nType == 0:  # Speaker mute
 			self.vMute()
-		elif self.nType == 1:#麦克风静音
+		elif self.nType == 1:  # Microphone mute
 			self.mMute()
-		elif self.nType == 2:#绘画静音
+		elif self.nType == 2:  # Session mute
 			self.sMute()
 
+	@script(
+		description=_("Switch to the next audio output device"),
+		gesture=("kb:NVDA+Windows+D")
+	)
+	def script_switchNextOutputDevice(self, gesture):
+		self.switchOutputDevice(1)
+
+	@script(
+		description = _("Switch to the previous audio output device"),
+		gesture=("kb:Shift+NVDA+Windows+D")
+	)
+	def script_switchPreviousOutputDevice(self, gesture):
+		self.switchOutputDevice(-1)
 
 	# Code borrowed from "NVDAScripts/" by Cyrille Bougot:
 	# https://github.dev/CyrilleB79/NVDAScripts/blob/982bcce12e3b7e9377716f0bd43052e437a74832/globalPlugins/changeOutputDevice.py
-	@script(
-		description = _("Cycle through audio devices"),
-		gesture = "kb:NVDA+windows+D"
-	)
-	def script_cycleAudioOutputDevices(self, gesture):
+	def switchOutputDevice(self, step):
 		# Note: code mainly taken from NVDA gui/settingsDialogs.py (class SynthesizerSelectionDialog)
 		deviceNames = nvwave.getOutputDeviceNames()
 		# #11349: On Windows 10 20H1 and 20H2, Microsoft Sound Mapper returns an empty string.
 		if deviceNames[0] in ("", "Microsoft Sound Mapper"):
-			deviceNames[0] = nvdaTranslations("Microsoft Sound Mapper")
+			deviceNames[0] = _("Microsoft Sound Mapper")
 		try:
 			selection = deviceNames.index(config.conf["speech"]["outputDevice"])
 		except ValueError:
-			selection = 0
-		selection = (selection + 1) % len(deviceNames)
-		audioDevice = deviceNames[selection]
+			i = 0
+		else:
+			i = (selection + step) % len(deviceNames)
+
+		audioDevice = deviceNames[i]
 		config.conf["speech"]["outputDevice"] = audioDevice
 
 		# Reinitialize the tones module and the synth to update the audio device

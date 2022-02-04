@@ -8,7 +8,8 @@
 
 | 名称 | 台式机 | 笔记本 |
 | ---- | ---- | ---- |
-| 循环切换声音输出设备 | NVDA+Windows+D | NVDA+Windows+D |
+| 下一个声音输出设备 | NVDA+Windows+D | NVDA+Windows+D |
+| 上一个声音输出设备 | Shift+NVDA+Windows+D | NVDA+Windows+D |
 | 上一个应用程序/设备 | Windows+Control+Alt+小键盘4 | Windows+Control+Alt+Left |
 | 下一个应用程序/设备 | Windows+Control+Alt+小键盘6 | Windows+Control+Alt+Right |
 | 增大当前应用程序/设备的音量 | Windows+Control+Alt+小键盘8 | Windows+Control+Alt+Up |
@@ -18,7 +19,7 @@
 
 ## 维护者
 
-* Cary-Rowen （插件维护）
+* Cary-Rowen （插件维护者）
 * 幽兰少云（音频控制模块）；
 * Cyrille Bougot (输出设备切换)
 * 沉浮 （其他支持）
@@ -26,6 +27,9 @@
 ## 兼容性
 **NVDA2019.3及最新**
 
+## 1.7 版更新日志
+1. 添加切换上一个音频输出设备的快捷键： Shift+NVDA+Windows+D;
+2. 更安全更优雅的运行库调用方式，感谢好奇的 01 提供思路。
 
 ## 1.6 版更新日志
 1. 修复一处自动安装运行库失败的错误；
