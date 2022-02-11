@@ -63,10 +63,14 @@ class sessionInfo(Structure):
 getProcessName = dll.getProcessName
 getProcessName.argtypes = [POINTER(sessionInfo)]
 
+confspec = {
+"isAutoMyVolume": "integer(default=0)"
+}
+config.conf.spec["audioControl"] = confspec
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	nType = 0
-	isAutoMyVolume = 0
+	isAutoMyVolume = config.conf["audioControl"]["isAutoMyVolume"]
 	scriptCategory = _("Audio control")
 
 	def __init__(self):
@@ -88,6 +92,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		)
 	def script_autoSetMyVolume(self, gesture):
 		self.isAutoMyVolume = (self.isAutoMyVolume+1)%2
+		config.conf["audioControl"]["isAutoMyVolume"]=self.isAutoMyVolume
 		if self.isAutoMyVolume == 0:
 			ui.message(_("Default"))
 		if self.isAutoMyVolume == 1:
