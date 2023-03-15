@@ -1,0 +1,29 @@
+{
+	"addonId": "AudioControl",
+	"displayName": "Audio Control",
+	"URL": "",
+	"description": "A add-on for controlling audio processes and sound output devices.",
+	"sha256": "33899d5b27d9be04a99c2881260abe154a567b7410db2bde1d439cd1122beee5",
+	"homepage": "https://www.nvdacn.com/",
+	"addonVersionName": "1.8.1",
+	"addonVersionNumber": {
+		"major": 1,
+		"minor": 8,
+		"patch": 1
+	},
+	"minNVDAVersion": {
+		"major": 0,
+		"minor": 0,
+		"patch": 0
+	},
+	"lastTestedVersion": {
+		"major": 0,
+		"minor": 0,
+		"patch": 0
+	},
+	"channel": "stable",
+	"publisher": "",
+	"sourceURL": "https://github.com/cary-rowen/AudioControl",
+	"license": "GPL v2",
+	"licenseURL": "https://www.gnu.org/licenses/gpl-2.0.html"
+}
